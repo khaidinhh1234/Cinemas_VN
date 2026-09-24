@@ -2,7 +2,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class TestOracle {
+public class TestLoaiXe {
 
     public static void main(String[] args) {
 
@@ -10,21 +10,23 @@ public class TestOracle {
             Connection conn = DBConnection.getConnection();
 
             System.out.println("Kết nối Oracle thành công!");
-            System.out.println("===== DANH SÁCH PHIM =====");
+            System.out.println("===== DANH SÁCH LOẠI XE =====");
 
             Statement stmt = conn.createStatement();
 
-            ResultSet rs = stmt.executeQuery(
-                    "SELECT MA_PHIM, TEN_PHIM, THE_LOAI, THOI_LUONG FROM PHIM");
+            String sql = """
+                    SELECT MA_LOAI_XE, TEN_LOAI_XE, MO_TA
+                    FROM LOAI_XE
+                    """;
+
+            ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
 
                 System.out.println(
-                        rs.getInt("MA_PHIM") + " | "
-                                + rs.getString("TEN_PHIM") + " | "
-                                + rs.getString("THE_LOAI") + " | "
-                                + rs.getInt("THOI_LUONG") + " phút");
-
+                        rs.getInt("MA_LOAI_XE") + " | "
+                                + rs.getString("TEN_LOAI_XE") + " | "
+                                + rs.getString("MO_TA"));
             }
 
             rs.close();
